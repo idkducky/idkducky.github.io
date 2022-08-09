@@ -2,12 +2,16 @@
 
 ## Ссылки на мои соц сети: | Links to my social networks:
 
-[youtube](https://www.youtube.com/channel/UCYacSqdvb0zinRhQQVNF4Dg) ![logo-youtube](https://user-images.githubusercontent.com/82889274/183740592-b23689a9-01d1-459c-a899-5fefec2eef2f.png)
+[youtube](https://www.youtube.com/channel/UCYacSqdvb0zinRhQQVNF4Dg) ![logo y](https://user-images.githubusercontent.com/82889274/183741575-90683b3b-f7bc-4c8e-bd41-7a00b1c976ec.jpg)
 
-[steam profile](https://steamcommunity.com/id/tut_na_sfere/) ![steam_logo](https://user-images.githubusercontent.com/82889274/183740591-4876f18f-76a9-4bdf-8b5e-0f3817012d10.png)
+[steam profile](https://steamcommunity.com/id/tut_na_sfere/) ![steam logo](https://user-images.githubusercontent.com/82889274/183742119-2bf826b5-e320-4a15-a23f-ec0a0ecc1b5b.jpg)
 
-[analog facebook](https://vk.com/raypsey) ![vk_logo](https://user-images.githubusercontent.com/82889274/183740585-b4a13e31-6125-42df-8448-2b51b0db3a57.jpg)
+[vk](https://vk.com/raypsey) ![vk logo](https://user-images.githubusercontent.com/82889274/183742121-66b21015-a030-421e-9704-daa66fb17ddb.jpg)
 
-[Discord](https://discord.gg/dmKVKkADqY) ![ds_logo](https://user-images.githubusercontent.com/82889274/183740595-059f50d4-0dd6-44dd-8261-47286bbde080.png)
+[Discord](https://discord.gg/dmKVKkADqY) ![discord logo](https://user-images.githubusercontent.com/82889274/183742112-adde2b75-92e9-4bd2-8f32-986e7bb09e62.jpg)
 
 ![<3](https://user-images.githubusercontent.com/82889274/183735082-6b864cd6-9229-475b-b0b8-cd9e760e023c.jpg)
+
+
+
+
