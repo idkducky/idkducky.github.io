@@ -1,15 +1,6 @@
-```markdown
- Ну... Привет | So... hello c:
-```
-### Markdown
+# Ну... Привет | So... hello c:
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-
-[Link](https://www.youtube.com/channel/UCYacSqdvb0zinRhQQVNF4Dg) 
-```
-ссылки на мои соц сети: | links to my social networks:
+## Ссылки на мои соц сети: | Links to my social networks:
 
 [youtube](https://www.youtube.com/channel/UCYacSqdvb0zinRhQQVNF4Dg) 
 
