@@ -1,6 +1,8 @@
-## Ну... Привет c: / So... hello
+## Ну... Привет | So... hello c:
 
-You can use the [editor on GitHub](https://github.com/idkducky/idkducky.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+ссылки на мои соц сети: | links to my social networks:
+
+[youtube](https://www.youtube.com/channel/UCYacSqdvb0zinRhQQVNF4Dg)
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
