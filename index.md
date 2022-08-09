@@ -1,4 +1,4 @@
-# Ну... Привет | So... hello c:
+# Ну... Привет  | So... hello c:
 
 ## Ссылки на мои соц сети: | Links to my social networks:
 
@@ -8,4 +8,4 @@
 
 [analog facebook](https://vk.com/raypsey)
 
-[Discord](https://discord.gg/dmKVKkADqY)
+[Discord](https://discord.gg/dmKVKkADqY) 
