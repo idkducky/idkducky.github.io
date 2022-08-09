@@ -2,15 +2,9 @@
 
 ссылки на мои соц сети:  links to my social networks:
 
-## 1
 ```markdown
 youtube chanel
 [youtube chanel](https://www.youtube.com/channel/UCYacSqdvb0zinRhQQVNF4Dg)
-```
-
-### 2
-
-```markdown
 vk | analog facebook
 ```
 
