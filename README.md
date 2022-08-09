@@ -1,2 +1,1 @@
-# idkducky.github.io
-my link
+boo
