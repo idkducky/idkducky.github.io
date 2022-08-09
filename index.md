@@ -1,4 +1,4 @@
-## Welcome to GitHub Pages
+## Ну... Привет c: / So... hello
 
 You can use the [editor on GitHub](https://github.com/idkducky/idkducky.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
 
