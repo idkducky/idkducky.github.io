@@ -6,7 +6,7 @@
 
 [steam profile](https://steamcommunity.com/id/tut_na_sfere/)
 
-[vk | analog facebook](https://vk.com/raypsey)
+[analog facebook](https://vk.com/raypsey)
 
 [Discord](https://discord.gg/dmKVKkADqY)
 ```markdon
