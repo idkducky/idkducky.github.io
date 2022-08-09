@@ -10,5 +10,4 @@
 
 [Discord](https://discord.gg/dmKVKkADqY)
 ```markdon
-
 ```
