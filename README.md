@@ -8,7 +8,7 @@
 
 [analog facebook](https://vk.com/raypsey)
 
-[analog anime list](https://animego.org/profile/edit)
+[analog myanimelist](https://animego.org/profile/edit)
 
 [Discord](https://discord.gg/dmKVKkADqY) 
 
