@@ -6,6 +6,6 @@
 
 [steam profile](https://steamcommunity.com/id/tut_na_sfere/) 
 
-[vk](https://vk.com/raypsey) 
+[vk](https://vk.com/kraypsey) 
 
 [Discord](https://discord.gg/dmKVKkADqY) 
