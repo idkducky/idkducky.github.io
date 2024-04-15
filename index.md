@@ -9,3 +9,5 @@
 [vk](https://vk.com/raypsey) 
 
 [Discord](https://discord.gg/dmKVKkADqY) 
+
+[Discord1](https://discord.com) 
