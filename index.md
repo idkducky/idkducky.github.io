@@ -10,4 +10,4 @@
 
 [Discord](https://discord.gg/dmKVKkADqY)
 
-[Mobile Nomber]+123456789
+[Whatsapp Nomber] (https://wa.me/994504964697)
