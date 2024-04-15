@@ -10,4 +10,4 @@
 
 [Discord](https://discord.gg/dmKVKkADqY)
 
-[number]()
+[number]((https://other.github.com/other.html))
