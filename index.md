@@ -10,4 +10,6 @@
 
 [Discord](https://discord.gg/dmKVKkADqY)
 
-[Whatsapp Nomber](https://wa.me/994504964697)
+[Whatsapp](https://wa.me/994504964697)
+
+[Telegram] (https://t.me/DaMne322)
