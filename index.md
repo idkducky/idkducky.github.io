@@ -12,4 +12,4 @@
 
 [Whatsapp](https://wa.me/994504964697)
 
-[Telegram] (https://t.me/DaMne322)
+[Telegram](https://t.me/DaMne322)
