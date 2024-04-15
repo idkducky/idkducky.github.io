@@ -10,4 +10,4 @@
 
 [Discord](https://discord.gg/dmKVKkADqY)
 
-[Mobile Nomber](+1234567890)
+[Mobile Nomber]+123456789
