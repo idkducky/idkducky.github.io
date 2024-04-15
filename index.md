@@ -14,4 +14,4 @@
 
 [Telegram](https://t.me/DaMne322)
 
-[phone number] `+994504964697`
+`+994504964697`
