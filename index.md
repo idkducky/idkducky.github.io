@@ -14,3 +14,4 @@
 
 [Telegram](https://t.me/DaMne322)
 
+tel:+74951234567
