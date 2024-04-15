@@ -10,4 +10,4 @@
 
 [Discord](https://discord.gg/dmKVKkADqY)
 
-[Whatsapp Nomber] (https://wa.me/994504964697)
+[Whatsapp Nomber](https://wa.me/994504964697)
