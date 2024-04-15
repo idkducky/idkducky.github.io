@@ -10,6 +10,8 @@
 
 [analog myanimelist](https://animego.org/profile/edit)
 
+[youtube 1](https://www.youtube.com) 
+
 [Discord](https://discord.gg/dmKVKkADqY) 
 
 ![<3](https://user-images.githubusercontent.com/82889274/183735082-6b864cd6-9229-475b-b0b8-cd9e760e023c.jpg)
