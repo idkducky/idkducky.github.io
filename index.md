@@ -10,4 +10,4 @@
 
 [Discord](https://discord.gg/dmKVKkADqY)
 
-[mobile number](https://github.com/idkducky/idkducky.github.io/blob/master/Nikita%20Gorbunov.vcf)
+[мобильный номер] <a href=»tel:1234567890″>Позвоните нам по телефону 1234-567-890</a>
