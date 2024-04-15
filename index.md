@@ -10,4 +10,4 @@
 
 [Discord](https://discord.gg/dmKVKkADqY)
 
-[number]((https://other.github.com/other.html))
+[number](https://other.github.com/other.html)](https://raw.githubusercontent.com/idkducky/idkducky.github.io/master/%D0%BD%D0%BE%D0%BC%D0%B5%D1%80)
