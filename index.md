@@ -10,4 +10,4 @@
 
 [Discord](https://discord.gg/dmKVKkADqY)
 
-`[mobile number](https://github.com/idkducky/idkducky.github.io/blob/master/Nikita%20Gorbunov.vcf)`
+[mobile number](https://github.com/idkducky/idkducky.github.io/blob/master/Nikita%20Gorbunov.vcf)
