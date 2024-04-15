@@ -14,4 +14,4 @@
 
 [Telegram](https://t.me/DaMne322)
 
-tel:+74951234567
+[phone number] +94504964697
