@@ -10,4 +10,4 @@
 
 [Discord](https://discord.gg/dmKVKkADqY)
 
-[мобильный номер] <a href=»tel:1234567890″>Позвоните нам по телефону 1234-567-890</a>
+[Mobile Nomber](»tel:1234567890″)
