@@ -6,7 +6,6 @@
 
 [steam profile](https://steamcommunity.com/id/tut_na_sfere/) 
 
-
 [Discord](https://discord.gg/dmKVKkADqY)
 
 [Whatsapp](https://wa.me/994504964697)
