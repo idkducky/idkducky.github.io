@@ -12,4 +12,6 @@
 
 [Telegram](https://t.me/DaMne322)
 
+[Telegram Chanel](https://t.me/DaMne_322)
+
 [Instagram](https://www.instagram.com/here_on_the_dome/)
