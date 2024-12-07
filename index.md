@@ -8,8 +8,6 @@
 
 [Discord](https://discord.gg/dmKVKkADqY)
 
-[Whatsapp](https://wa.me/994504964697)
-
 [Telegram](https://t.me/DaMne322)
 
 [Telegram Chanel](https://t.me/DaMne_322)
