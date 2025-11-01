@@ -95,3 +95,14 @@ body.folder-open { overflow: hidden; }
 @media (prefers-reduced-motion:reduce){
   body,.wrap{animation:none!important;transition:none!important}
 }
+/* hero image under title (original concept) */
+.hero{
+  display:block;
+  margin:10px auto 6px;
+  max-width:320px;   /* можно 360, если хочешь крупнее */
+  width:100%;
+  border-radius:20px;
+  box-shadow:0 6px 20px rgba(0,0,0,.18);
+  transition:transform .8s ease;
+}
+.hero:hover{ transform:scale(1.03) }
