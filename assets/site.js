@@ -1,61 +1,39 @@
-// v5 — overlay-папки «поверх себя» + плавная смена языка
-
+// v7 — restored folder toggling + working translations
 function changeLang(sel) {
-  const val = sel.value; if (!val) return;
-  document.body.classList.add('fade-out');
-  const d = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 450;
-  setTimeout(() => { location.href = val; }, d);
+  const val = sel.value;
+  if (!val) return;
+  document.body.classList.add("fade-out");
+  const delay = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 450;
+  setTimeout(() => (location.href = val), delay);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Инициализация «папок»
-  document.querySelectorAll('.cc-folder').forEach(folder => {
-    const summary = folder.querySelector('summary');
-    const content = folder.querySelector('.content');
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".cc-folder").forEach(det => {
+    const content = det.querySelector(".content");
+    if (!content) return;
 
-    if (!summary || !content) return;
+    // начальные параметры
+    content.style.overflow = "hidden";
+    content.style.transition = "max-height .35s ease";
+    if (det.open) content.style.maxHeight = content.scrollHeight + "px";
+    else content.style.maxHeight = "0";
 
-    // 1) Гасим стандартный toggle <details>, используем кастом-оверлей
-    summary.addEventListener('click', (e) => {
-      e.preventDefault();
-      e.stopPropagation();
-      // Переключаем режим поверх себя
-      const isOpen = folder.classList.toggle('open-overlay');
-      // Лёгкая страховка фокуса/скролла
-      if (isOpen) {
-        // ставим фокус на контент, чтобы ESC работал
-        content.setAttribute('tabindex', '-1');
-        content.focus({ preventScroll: true });
+    det.addEventListener("toggle", () => {
+      if (det.open) {
+        content.style.maxHeight = content.scrollHeight + "px";
+        const onEnd = () => {
+          content.style.maxHeight = "none";
+          content.removeEventListener("transitionend", onEnd);
+        };
+        content.addEventListener("transitionend", onEnd);
+      } else {
+        content.style.maxHeight = content.scrollHeight + "px";
+        requestAnimationFrame(() => {
+          content.style.maxHeight = "0";
+        });
       }
-    });
-
-    // 2) Кнопка закрытия (добавляем, если нет)
-    if (!content.querySelector('.cc-close')) {
-      const btn = document.createElement('button');
-      btn.className = 'cc-close';
-      btn.setAttribute('aria-label', 'Close');
-      btn.innerText = '×';
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        folder.classList.remove('open-overlay');
-      });
-      content.appendChild(btn);
-    }
-
-    // 3) Закрытие по ESC
-    content.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        folder.classList.remove('open-overlay');
-      }
-    });
-
-    // 4) Клик вне контента — закрыть (только внутри карточки)
-    folder.addEventListener('click', (e) => {
-      if (!folder.classList.contains('open-overlay')) return;
-      const inside = content.contains(e.target) || summary.contains(e.target);
-      if (!inside) folder.classList.remove('open-overlay');
     });
   });
 
-  console.log('[site.js] overlay folders ready');
+  console.log("[site.js v7] toggles fixed");
 });
