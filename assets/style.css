@@ -141,3 +141,14 @@ body.folder-open { overflow: hidden; }
 @media (prefers-reduced-motion:reduce){
   body,.wrap{animation:none!important;transition:none!important}
 }
+.cc-folder .app img,
+.folder-grid .app img{
+  width:46px; height:46px;
+  border-radius:10px;
+  padding:8px;
+  background:var(--icon-bg);
+  border:1px solid var(--border);
+  box-sizing:border-box;
+  object-fit: contain;
+  image-rendering: auto;
+}
