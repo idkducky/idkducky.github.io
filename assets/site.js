@@ -1,49 +1,61 @@
-// ===== site.js =====
+// v5 — overlay-папки «поверх себя» + плавная смена языка
 
-// Автоматический редирект по языку браузера (только на главной)
-function autoRedirectIfNeeded() {
-  if (!window.location.pathname.endsWith('/') && !window.location.pathname.endsWith('/index.html')) return;
-  const lang = navigator.language.toLowerCase();
-  if (lang.startsWith('en')) window.location.href = '/en.html';
-  else if (lang.startsWith('az')) window.location.href = '/az.html';
-  else if (lang.startsWith('ka')) window.location.href = '/ka.html';
-  else window.location.href = '/index.html';
+function changeLang(sel) {
+  const val = sel.value; if (!val) return;
+  document.body.classList.add('fade-out');
+  const d = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 450;
+  setTimeout(() => { location.href = val; }, d);
 }
 
-// Добавляем анимацию открытия мини-папок
 document.addEventListener('DOMContentLoaded', () => {
-  const folders = document.querySelectorAll('.cc-folder');
-  folders.forEach(folder => {
-    folder.addEventListener('toggle', () => {
-      const content = folder.querySelector('.content');
-      if (!content) return;
-      if (folder.open) {
-        content.style.maxHeight = content.scrollHeight + 'px';
-      } else {
-        content.style.maxHeight = '0';
+  // Инициализация «папок»
+  document.querySelectorAll('.cc-folder').forEach(folder => {
+    const summary = folder.querySelector('summary');
+    const content = folder.querySelector('.content');
+
+    if (!summary || !content) return;
+
+    // 1) Гасим стандартный toggle <details>, используем кастом-оверлей
+    summary.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      // Переключаем режим поверх себя
+      const isOpen = folder.classList.toggle('open-overlay');
+      // Лёгкая страховка фокуса/скролла
+      if (isOpen) {
+        // ставим фокус на контент, чтобы ESC работал
+        content.setAttribute('tabindex', '-1');
+        content.focus({ preventScroll: true });
       }
+    });
+
+    // 2) Кнопка закрытия (добавляем, если нет)
+    if (!content.querySelector('.cc-close')) {
+      const btn = document.createElement('button');
+      btn.className = 'cc-close';
+      btn.setAttribute('aria-label', 'Close');
+      btn.innerText = '×';
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        folder.classList.remove('open-overlay');
+      });
+      content.appendChild(btn);
+    }
+
+    // 3) Закрытие по ESC
+    content.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        folder.classList.remove('open-overlay');
+      }
+    });
+
+    // 4) Клик вне контента — закрыть (только внутри карточки)
+    folder.addEventListener('click', (e) => {
+      if (!folder.classList.contains('open-overlay')) return;
+      const inside = content.contains(e.target) || summary.contains(e.target);
+      if (!inside) folder.classList.remove('open-overlay');
     });
   });
 
-  // Добавляем плавное раскрытие
-  const css = document.createElement('style');
-  css.textContent = `
-    .cc-folder .content {
-      overflow: hidden;
-      transition: max-height 0.35s ease;
-    }
-  `;
-  document.head.appendChild(css);
-
-  // Проверка загрузки CSS/JS (диагностика)
-  console.log('%c[site.js] assets подключены успешно', 'color:#06b6d4; font-weight:bold;');
+  console.log('[site.js] overlay folders ready');
 });
-
-// Кнопка смены языка (если решишь добавить её внизу страницы)
-function switchLang(lang) {
-  const current = window.location.pathname;
-  if (current.includes('en.html') && lang === 'ru') window.location.href = '/index.html';
-  else if (current.includes('az.html') && lang === 'ru') window.location.href = '/index.html';
-  else if (current.includes('ka.html') && lang === 'ru') window.location.href = '/index.html';
-  else if (!current.includes(`${lang}.html`)) window.location.href = `/${lang}.html`;
-}
