@@ -1,14 +1,17 @@
-(function () {
-  var MAP = {
-    "/index-en.html": "/en.html",
-    "/index-az.html": "/az.html",
-    "/index-ka.html": "/ka.html",
-    "/index-ua.html": "/ua.html"
-  };
-  var p = (location.pathname.replace(/\/+$/, "") || "/index.html");
-  if (MAP[p]) {
-    location.replace(MAP[p] + location.search + location.hash);
+(function(){
+  var mq = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)")) || null;
+  function setThemeMeta(){
+    var dark = mq && mq.matches;
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (!meta){
+      meta = document.createElement("meta");
+      meta.setAttribute("name","theme-color");
+      document.head.appendChild(meta);
+    }
+    meta.setAttribute("content", dark ? "#101010" : "#ffffff");
   }
+  setThemeMeta();
+  if (mq && mq.addListener) mq.addListener(setThemeMeta);
 })();
 
 window.changeLang = function (sel) {
