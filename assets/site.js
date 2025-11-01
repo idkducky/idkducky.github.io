@@ -7,6 +7,13 @@
     document.body.classList.add("fade-out");
     const d = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 380;
     setTimeout(() => (location.href = val), d);
+    const LEGACY = {
+  "/index-en.html": "/en.html",
+  "/index-az.html": "/az.html",
+  "/index-ka.html": "/ka.html",
+  "/index-ua.html": "/ua.html"
+};
+val = LEGACY[val] || val;
   };
 
   // ---- build single modal once ----
@@ -73,15 +80,4 @@
 
     console.log("[site.js v10] modal ready");
   });
-})();
-// --- legacy path normalizer (put at TOP of site.js) ---
-(function normalizeLegacyPaths() {
-  const MAP = {
-    "/index-en.html": "/en.html",
-    "/index-az.html": "/az.html",
-    "/index-ka.html": "/ka.html",
-    "/index-ua.html": "/ua.html"
-  };
-  const p = location.pathname.replace(/\/+$/, ""); // без хвостового /
-  if (MAP[p]) location.replace(MAP[p] + location.search + location.hash);
 })();
