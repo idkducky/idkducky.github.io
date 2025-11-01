@@ -98,15 +98,15 @@ body.folder-open { overflow: hidden; }
 }
 .folder-grid .app .t{ font-size:14px; font-weight:500 }
 
-@media (prefers-reduced-motion:reduce){
-  body,.wrap{animation:none!important;transition:none!important}
+@media (max-width:360px){
+  .hero{ max-width:280px; border-radius:16px }
 }
-/* hero image under title (original concept) */
 .hero{
   display:block;
   margin:10px auto 6px;
-  max-width:320px;   /* можно 360, если хочешь крупнее */
   width:100%;
+  max-width:320px;
+  height:auto;
   border-radius:20px;
   box-shadow:0 6px 20px rgba(0,0,0,.18);
   transition:transform .8s ease;
