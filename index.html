@@ -7,52 +7,11 @@
   <meta http-equiv="Pragma" content="no-cache" />
   <meta http-equiv="Expires" content="0" />
   <title>idkducky — Привет!</title>
-  <style>
-    body {
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;
-      margin:0;
-      background:linear-gradient(180deg,#f9f6f2,#f2eee9);
-      animation:fadeIn 1s ease-in;
-      transition:opacity .45s ease, filter .45s ease;
-    }
-    .fade-out{opacity:0;filter:blur(4px);}
-    @keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-    .wrap{max-width:760px;margin:48px auto;padding:24px 22px;background:#fff;border-radius:18px;
-          box-shadow:0 10px 30px rgba(0,0,0,.06);animation:fadeIn 1.2s ease-in;}
-    h1,h2,h3,p,a{text-align:center}
-    .hero{border-radius:20px;box-shadow:0 6px 20px rgba(0,0,0,.18);max-width:300px;width:100%;transition:transform .8s ease;}
-    .hero:hover{transform:scale(1.03);filter:blur(0);}
-    .muted{color:#666;font-size:14px;margin-top:8px}
-    .socials{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:10px}
-    .socials a{display:inline-flex;flex-direction:column;align-items:center;text-decoration:none;color:#222;font-size:14px;
-               opacity:0;animation:fadeIn .8s ease forwards;}
-    .socials a:nth-child(1){animation-delay:.1s}
-    .socials a:nth-child(2){animation-delay:.2s}
-    .socials a:nth-child(3){animation-delay:.3s}
-    .socials a:nth-child(4){animation-delay:.4s}
-    .socials a:nth-child(5){animation-delay:.5s}
-    .socials img{width:60px;height:60px;border-radius:12px;transition:.3s ease-in-out;}
-    .socials img:hover{transform:scale(1.1);box-shadow:0 6px 15px rgba(0,0,0,.15);}
-    select{margin-top:20px;padding:6px 10px;border-radius:8px;border:1px solid #ccc;font-size:14px;background:#fafafa;}
-  </style>
+  <link rel="stylesheet" href="assets/style.css">
+  <script defer src="assets/site.js"></script>
   <script>
-    (function(){
-      const p=new URLSearchParams(location.search);
-      const f=(p.get('lang')||'').toLowerCase();
-      if(f==='en')location.href='en.html';
-      if(f==='az')location.href='az.html';
-      if(f==='ka'||f==='ge')location.href='ka.html';
-      const lng=(navigator.language||'').toLowerCase();
-      if(lng.startsWith('en'))location.href='en.html';
-      if(lng.startsWith('az'))location.href='az.html';
-      if(lng.startsWith('ka'))location.href='ka.html';
-    })();
-    function changeLang(sel){
-      const val=sel.value;if(!val)return;
-      document.body.classList.add('fade-out');
-      const delay=window.matchMedia('(prefers-reduced-motion: reduce)').matches?0:450;
-      setTimeout(()=>location.href=val,delay);
-    }
+    // Запускаем авто-редирект только на главной RU
+    document.addEventListener('DOMContentLoaded', autoRedirectIfNeeded);
   </script>
 </head>
 <body>
@@ -69,6 +28,7 @@
       <a href="https://t.me/DaMne_322"><img src="https://github.com/user-attachments/assets/30db8287-f0d1-4cc1-92cc-c371083b02be"><span>Telegram</span></a>
       <a href="https://x.com/DaMne322"><img src="https://github.com/user-attachments/assets/08640366-2588-4502-85e3-82850a73781c"><span>Twitter</span></a>
     </div>
+
     <p>
       <select id="lang-select" onchange="changeLang(this)">
         <option value="">🌍 Выбери язык</option>
