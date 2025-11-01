@@ -1,113 +1,39 @@
-/* ===== iOS-like mini folders ===== */
-.cc-grid {
-  max-width: 880px;
-  margin: 16px auto 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px;
+:root { --bg1:#f9f6f2; --bg2:#f2eee9; }
+html,body{height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;
+  margin:0;background:linear-gradient(180deg,var(--bg1),var(--bg2));
+  animation:fadeIn 1s ease-in;transition:opacity .45s ease,filter .45s ease;
 }
-.cc-folder {
-  border-radius: 20px;
-  background: rgba(255,255,255,.65);
-  border: 1px solid rgba(230,225,220,.8);
-  box-shadow: 0 10px 28px rgba(0,0,0,.08);
-  backdrop-filter: blur(12px);
-  overflow: hidden;
-}
-.cc-folder summary {
-  list-style: none;
-  cursor: pointer;
-  display: flex; flex-direction: column; align-items: center;
-  gap: 8px; padding: 14px 16px;
-  user-select: none;
-}
-.cc-folder summary::-webkit-details-marker { display: none; }
-.cc-folder .cluster {
-  display: grid; grid-template-columns: repeat(2, 32px); grid-template-rows: repeat(2, 32px);
-  gap: 6px; padding: 10px; border-radius: 14px;
-  background: rgba(255,255,255,.7);
-  border: 1px solid rgba(230,225,220,.7);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.7);
-}
-.cc-folder .dot {
-  width: 32px; height: 32px; border-radius: 9px;
-  display: grid; place-items: center; font-size: 18px;
-  background: #fff;
-  box-shadow: 0 2px 6px rgba(0,0,0,.06);
-}
-.cc-folder .label { font-weight: 600; color: #222; font-size: 14px; }
+.fade-out{opacity:0;filter:blur(4px)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.wrap{max-width:760px;margin:48px auto;padding:24px 22px;background:#fff;border-radius:18px;
+      box-shadow:0 10px 30px rgba(0,0,0,.06);animation:fadeIn 1.2s ease-in}
+h1,h2,h3,p,a{text-align:center}
+.hero{border-radius:20px;box-shadow:0 6px 20px rgba(0,0,0,.18);max-width:300px;width:100%;transition:transform .8s ease}
+.hero:hover{transform:scale(1.03)}
+.muted{color:#666;font-size:14px;margin-top:8px}
 
-.cc-folder .content { padding: 12px 14px 16px; border-top: 1px solid rgba(240,236,230,.9); }
-.cc-folder .apps {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-  gap: 10px;
-}
-.cc-folder .app {
-  display: grid; grid-template-columns: 46px 1fr; align-items: center; gap: 10px;
-  padding: 8px 10px; border-radius: 12px;
-  border: 1px solid #eee; background: #fff; text-decoration: none; color: #222;
-  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
-}
-.cc-folder .app:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(0,0,0,.06); border-color: #e9e4de; }
-.cc-folder .app img { width: 46px; height: 46px; border-radius: 10px; }
-.cc-folder .app .t { font-size: 14px; font-weight: 500; }
-/* ===== iOS-style overlay open for folders ===== */
-.cc-folder { position: relative; }
+select{margin-top:20px;padding:6px 10px;border-radius:8px;border:1px solid #ccc;font-size:14px;background:#fafafa}
 
-.cc-folder .content {
-  /* базовый «сложенный» вид */
-  position: absolute;
-  inset: 8px;
-  border-radius: 18px;
-  background: rgba(255,255,255,.92);
-  border: 1px solid rgba(230,225,220,.9);
-  box-shadow: 0 18px 40px rgba(0,0,0,.16);
-  backdrop-filter: blur(14px);
-  transform: scale(.98);
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    opacity .22s ease,
-    transform .22s ease,
-    box-shadow .22s ease;
-}
+/* -------- Mini-folders (simple accordion, not overlay) -------- */
+.cc-grid{max-width:880px;margin:16px auto 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;align-items:start}
+.cc-folder{border-radius:20px;background:#fff;border:1px solid #eee;box-shadow:0 10px 28px rgba(0,0,0,.06);overflow:hidden}
+.cc-folder summary{list-style:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;padding:14px 16px;
+  user-select:none;background:linear-gradient(180deg,#fff,#faf9f7);border-bottom:1px solid #f0ece6}
+.cc-folder summary::-webkit-details-marker{display:none}
+.cc-folder .cluster{display:grid;grid-template-columns:repeat(2,32px);grid-template-rows:repeat(2,32px);gap:6px;
+  padding:10px;border-radius:14px;background:#fff;border:1px solid #eee;box-shadow:inset 0 1px 0 rgba(255,255,255,.7)}
+.cc-folder .dot{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;font-size:18px;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.06)}
+.cc-folder .label{font-weight:600;color:#222;font-size:14px}
+.cc-folder .content{padding:12px 14px 16px}
+.cc-folder .apps{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.cc-folder .app{display:grid;grid-template-columns:46px 1fr;align-items:center;gap:10px;padding:8px 10px;border-radius:12px;border:1px solid #eee;background:#fff;
+  text-decoration:none;color:#222;transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease}
+.cc-folder .app:hover{transform:translateY(-1px);box-shadow:0 8px 18px rgba(0,0,0,.06);border-color:#e9e4de}
+.cc-folder .app img{width:46px;height:46px;border-radius:10px}
+.cc-folder .app .t{font-size:14px;font-weight:500}
 
-/* состояние «поверх себя» */
-.cc-folder.open-overlay .content {
-  opacity: 1;
-  transform: scale(1);
-  pointer-events: auto;
-}
-
-/* отключаем вертикальные сдвиги сетки, чтобы не прыгало */
-.cc-grid { align-items: start; }
-
-/* кнопка закрытия */
-.cc-close {
-  position: absolute; top: 10px; right: 10px;
-  width: 32px; height: 32px; border-radius: 10px;
-  border: 1px solid rgba(230,225,220,.9);
-  background: rgba(255,255,255,.9);
-  display: grid; place-items: center;
-  font-size: 16px; line-height: 1; cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,.08);
-  transition: transform .12s ease, box-shadow .12s ease;
-}
-.cc-close:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(0,0,0,.12); }
-
-/* аккуратная анимация появления */
-@keyframes ccPop {
-  from { opacity: 0; transform: scale(.96); }
-  to   { opacity: 1; transform: scale(1); }
-}
-.cc-folder.open-overlay .content { animation: ccPop .18s ease; }
-
-/* уважим reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .cc-folder .content,
-  .cc-folder.open-overlay .content {
-    transition: none !important;
-    animation: none !important;
-  }
+@media (prefers-reduced-motion:reduce){
+  body,.wrap,.hero{animation:none!important;transition:none!important}
 }
