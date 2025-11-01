@@ -1,62 +1,58 @@
-/* Общий стиль для всех языков */
-:root { --bg1:#f9f6f2; --bg2:#f2eee9; }
-
-html,body { height: 100%; }
-body {
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Arial,sans-serif;
-  margin:0;
-  background:linear-gradient(180deg,var(--bg1),var(--bg2));
-  animation:fadeIn 1s ease-in;
-  transition:opacity .45s ease, filter .45s ease;
+/* ===== Mini-folders (категории) ===== */
+.folders {
+  max-width: 880px;
+  margin: 24px auto 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
 }
 
-.fade-out { opacity:0; filter: blur(4px); }
-
-@keyframes fadeIn {
-  from { opacity:0; transform: translateY(10px); }
-  to   { opacity:1; transform: translateY(0); }
+.folder {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.06);
+  overflow: hidden;
+  border: 1px solid #eee;
 }
 
-.wrap {
-  max-width:760px; margin:48px auto; padding:24px 22px;
-  background:#fff; border-radius:18px;
-  box-shadow:0 10px 30px rgba(0,0,0,.06);
-  animation:fadeIn 1.2s ease-in;
+.folder summary {
+  list-style: none; cursor: pointer;
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 10px;
+  font-weight: 600; color: #222;
+  background: linear-gradient(180deg,#fff,#faf9f7);
+  border-bottom: 1px solid #f0ece6;
+}
+.folder summary::-webkit-details-marker { display: none; }
+
+.folder .badge {
+  font-size: 12px; line-height: 1;
+  padding: 6px 8px; border-radius: 999px;
+  background: #f2eee9; color: #555; margin-left: auto;
+  border: 1px solid #e6e0d8;
 }
 
-h1,h2,h3,p,a { text-align:center; }
-
-.hero {
-  border-radius:20px; box-shadow:0 6px 20px rgba(0,0,0,.18);
-  max-width:300px; width:100%; transition: transform .8s ease;
-}
-.hero:hover { transform: scale(1.03); }
-
-.muted { color:#666; font-size:14px; margin-top:8px; }
-
-.socials { display:flex; justify-content:center; gap:22px; flex-wrap:wrap; margin-top:10px; }
-.socials a {
-  display:inline-flex; flex-direction:column; align-items:center;
-  text-decoration:none; color:#222; font-size:14px;
-  opacity:0; animation:fadeIn .8s ease forwards;
-}
-.socials a:nth-child(1){animation-delay:.1s}
-.socials a:nth-child(2){animation-delay:.2s}
-.socials a:nth-child(3){animation-delay:.3s}
-.socials a:nth-child(4){animation-delay:.4s}
-.socials a:nth-child(5){animation-delay:.5s}
-
-.socials img {
-  width:60px; height:60px; border-radius:12px; transition:.3s ease-in-out;
-}
-.socials img:hover { transform:scale(1.1); box-shadow:0 6px 15px rgba(0,0,0,.15); }
-
-select {
-  margin-top:20px; padding:6px 10px; border-radius:8px;
-  border:1px solid #ccc; font-size:14px; background:#fafafa;
+.folder .content {
+  padding: 12px 14px 14px;
 }
 
-/* Уважим reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  body, .wrap, .socials a, .hero { animation: none !important; transition: none !important; }
+.links {
+  display: grid; gap: 10px;
+}
+.link-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border: 1px solid #eee; border-radius: 10px;
+  background: #fff; text-decoration: none; color: #222;
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+.link-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0,0,0,.06);
+  border-color: #e9e4de;
+}
+.link-item img {
+  width: 22px; height: 22px; border-radius: 6px;
+}
+.link-item .label {
+  font-size: 14px; font-weight: 500;
 }
