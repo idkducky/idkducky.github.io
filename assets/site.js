@@ -33,7 +33,6 @@ window.changeLang = function (sel) {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-
   var sel = document.querySelector('select[onchange^="changeLang"]');
   if (sel) {
     var current = (location.pathname.replace(/\/+$/, "") || "/index.html");
@@ -42,7 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (sel.options[i].value === valueToSet){ sel.value = valueToSet; break; }
     }
   }
-
 
   var modal = document.createElement("div");
   modal.className = "folder-modal";
@@ -73,9 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   function openModal(label, apps){
     title.textContent = label || "Folder";
-
     while (grid.firstChild) grid.removeChild(grid.firstChild);
-
     for (var i=0;i<apps.length;i++){
       grid.appendChild(apps[i].cloneNode(true));
     }
@@ -95,29 +91,33 @@ document.addEventListener("DOMContentLoaded", function () {
       panel.removeEventListener("transitionend", done);
     };
     panel.addEventListener("transitionend", done);
-    setTimeout(done, 300); 
+    setTimeout(done, 300);
   }
 
+  document.addEventListener("click", function(e){
+    var node = e.target;
+    var n = node;
+    while (n) {
+      if (n.classList && n.classList.contains("apps")) return; 
+      if (n.tagName === "A") return; 
+      n = n.parentNode;
+    }
 
-  var folders = document.querySelectorAll(".cc-folder");
-  for (var j=0;j<folders.length;j++){
-    (function(folder){
-      var summary = folder.querySelector("summary");
-      if (!summary) return;
-      summary.addEventListener("click", function(e){
+    var el = node;
+    while (el && !(el.classList && el.classList.contains("cc-folder"))) {
+      el = el.parentNode;
+    }
+    if (!el) return;
 
-        if (e && e.preventDefault) e.preventDefault();
-        var lblEl = folder.querySelector(".label");
-        var label = lblEl ? (lblEl.textContent || lblEl.innerText) : "Folder";
-        var apps = folder.querySelectorAll(".app");
-  
-        var list = [];
-        for (var k=0;k<apps.length;k++) list.push(apps[k]);
-        openModal(label, list);
-      });
-    })(folders[j]);
-  }
+    var lblEl = el.querySelector(".label");
+    var label = lblEl ? (lblEl.textContent || lblEl.innerText) : "Folder";
+    var appsNodeList = el.querySelectorAll(".app");
+    var apps = [];
+    for (var i=0;i<appsNodeList.length;i++) apps.push(appsNodeList[i]);
 
+    if (e && e.preventDefault) e.preventDefault();
+    openModal(label, apps);
+  });
 
   closeBtn.addEventListener("click", closeModal);
   modal.addEventListener("click", function(e){ if (e.target === modal) closeModal(); });
@@ -128,6 +128,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-
-  if (window.console && console.log) console.log("[site.js v12] ready (ES5)");
+  if (window.console && console.log) console.log("[site.js v13] ready (delegated, ES5)");
 });
