@@ -1,178 +1,126 @@
-(function () {
-  var MAP = {
+(() => {
+  const MAP = {
     "/index-en.html": "/en.html",
     "/index-az.html": "/az.html",
     "/index-ka.html": "/ka.html",
-    "/index-ua.html": "/ua.html"
+    "/index-ua.html": "/ua.html",
   };
-  var p = (location.pathname.replace(/\/+$/, "") || "/index.html");
-  if (MAP[p]) {
-    location.replace(MAP[p] + location.search + location.hash);
-  }
+  const p = (location.pathname.replace(/\/+$/, "") || "/index.html");
+  if (MAP[p]) location.replace(`${MAP[p]}${location.search}${location.hash}`);
 })();
 
-window.changeLang = function (sel) {
-  if (!sel) return;
-  var val = sel.value;
-  if (!val) return;
-
-  var LEGACY = {
+window.changeLang = (sel) => {
+  const LEGACY = {
     "/index-en.html": "/en.html",
     "/index-az.html": "/az.html",
     "/index-ka.html": "/ka.html",
-    "/index-ua.html": "/ua.html"
+    "/index-ua.html": "/ua.html",
   };
-  if (LEGACY[val]) val = LEGACY[val];
+  let val = sel?.value;
+  if (!val) return;
+  val = LEGACY[val] || val;
 
-  var current = (location.pathname.replace(/\/+$/, "") || "/index.html");
+  const current = (location.pathname.replace(/\/+$/, "") || "/index.html");
   if (val === current) return;
 
   document.body.classList.add("fade-out");
-  var d = (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? 0 : 380;
-  setTimeout(function(){ location.href = val; }, d);
+  const delay = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 380;
+  setTimeout(() => (location.href = val), delay);
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-  function sanitizeApps(root) {
-    var scope = root || document;
-    var apps = scope.querySelectorAll ? scope.querySelectorAll(".app") : [];
-    for (var i = 0; i < apps.length; i++) {
-      var a = apps[i];
-
-      var nodes = a.childNodes;
-      var rm = [];
-      for (var j = 0; j < nodes.length; j++) {
-        var n = nodes[j];
-        if (n.nodeType === 3 && n.nodeValue && n.nodeValue.replace(/\s+/g,"").length) {
-          rm.push(n);
-        }
-      }
-      for (var r = 0; r < rm.length; r++) a.removeChild(rm[r]);
-
-      var labels = a.querySelectorAll ? a.querySelectorAll("span.t") : [];
-      for (var k = 1; k < labels.length; k++) {
-        var extra = labels[k];
-        if (extra && extra.parentNode) extra.parentNode.removeChild(extra);
-      }
-    }
-  }
-
-  var sel = document.querySelector('select[onchange^="changeLang"]');
+document.addEventListener("DOMContentLoaded", () => {
+  const sel = document.querySelector('select[onchange^="changeLang"]');
   if (sel) {
-    var current = (location.pathname.replace(/\/+$/, "") || "/index.html");
-    var valueToSet = current === "/" ? "/index.html" : current;
-    for (var i=0;i<sel.options.length;i++){
-      if (sel.options[i].value === valueToSet){ sel.value = valueToSet; break; }
-    }
+    const current = (location.pathname.replace(/\/+$/, "") || "/index.html");
+    const value = current === "/" ? "/index.html" : current;
+    if ([...sel.options].some(o => o.value === value)) sel.value = value;
   }
 
-  var modal = document.createElement("div");
+  const modal = document.createElement("div");
   modal.className = "folder-modal";
+  modal.innerHTML = `
+    <div class="folder-panel" role="dialog" aria-modal="true">
+      <div class="folder-header">
+        <span class="folder-title"></span>
+        <button class="folder-close" aria-label="Close">×</button>
+      </div>
+      <div class="folder-grid"></div>
+    </div>`;
+  document.body.append(modal);
 
-  var panel = document.createElement("div");
-  panel.className = "folder-panel";
+  const panel = modal.querySelector(".folder-panel");
+  const title = modal.querySelector(".folder-title");
+  const grid  = modal.querySelector(".folder-grid");
+  const closeBtn = modal.querySelector(".folder-close");
 
-  var header = document.createElement("div");
-  header.className = "folder-header";
+  const buildCleanApp = (a) => {
+    const href = a.getAttribute("href") || "#";
+    const t    = a.querySelector(".t")?.textContent?.trim() || a.textContent.trim();
+    const img  = a.querySelector("img");
+    const src  = img?.getAttribute("src") || "";
+    const alt  = img?.getAttribute("alt") || t || "";
 
-  var title = document.createElement("span");
-  title.className = "folder-title";
-  header.appendChild(title);
+    const clone = document.createElement("a");
+    clone.className = "app";
+    clone.href = href;
+    clone.target = "_blank";
+    clone.rel = "noopener";
 
-  var closeBtn = document.createElement("button");
-  closeBtn.className = "folder-close";
-  closeBtn.setAttribute("aria-label","Close");
-  closeBtn.appendChild(document.createTextNode("×"));
-  header.appendChild(closeBtn);
+    const i = document.createElement("img");
+    i.src = src;
+    i.alt = alt;
 
-  var grid = document.createElement("div");
-  grid.className = "folder-grid";
+    const span = document.createElement("span");
+    span.className = "t";
+    span.textContent = t;
 
-  panel.appendChild(header);
-  panel.appendChild(grid);
-  modal.appendChild(panel);
-  document.body.appendChild(modal);
+    clone.append(i, span);
+    return clone;
+  };
 
-  function openModal(label, apps){
+  const openModal = (label, apps) => {
     title.textContent = label || "Folder";
-    while (grid.firstChild) grid.removeChild(grid.firstChild);
-    for (var i=0;i<apps.length;i++){
-      var clone = apps[i].cloneNode(true);
-      grid.appendChild(clone);
-    }
-    sanitizeApps(grid);
-
+    grid.innerHTML = "";
+    apps.forEach(a => grid.append(buildCleanApp(a)));
     document.body.classList.add("folder-open");
-    modal.classList.remove("closing");
     modal.classList.add("open");
-    try { closeBtn.focus(); } catch(e){}
-  }
+    closeBtn.focus({ preventScroll: true });
+  };
 
-  function closeModal(){
+  const closeModal = () => {
     if (!modal.classList.contains("open")) return;
-    modal.classList.add("closing");
     modal.classList.remove("open");
-    var done = function(){
-      modal.classList.remove("closing");
-      document.body.classList.remove("folder-open");
-      panel.removeEventListener("transitionend", done);
-    };
-    panel.addEventListener("transitionend", done);
-    setTimeout(done, 300);
-  }
+    document.body.classList.remove("folder-open");
+  };
 
-  sanitizeApps(document);
+  document.addEventListener("click", (e) => {
+    if (e.target.closest(".apps a")) return;
 
-  document.addEventListener("click", function(e){
-    var node = e.target;
+    const folder = e.target.closest(".cc-folder");
+    if (!folder) return;
 
-    var n = node;
-    while (n) {
-      if (n.tagName === "A") return;
-      if (n.classList && n.classList.contains("apps")) return;
-      n = n.parentNode;
-    }
-
-    var el = node;
-    while (el && !(el.classList && el.classList.contains("cc-folder"))) {
-      el = el.parentNode;
-    }
-    if (!el) return;
-
-    var lblEl = el.querySelector(".label");
-    var label = lblEl ? (lblEl.textContent || lblEl.innerText) : "Folder";
-    var appsNodeList = el.querySelectorAll(".app");
-    var apps = [];
-    for (var i2=0;i2<appsNodeList.length;i2++) apps.push(appsNodeList[i2]);
-
-    if (e && e.preventDefault) e.preventDefault();
+    e.preventDefault();
+    const label = folder.querySelector(".label")?.textContent?.trim() || "Folder";
+    const apps  = [...folder.querySelectorAll(".app")];
     openModal(label, apps);
   });
-
+  
   closeBtn.addEventListener("click", closeModal);
-  modal.addEventListener("click", function(e){ if (e.target === modal) closeModal(); });
-  document.addEventListener("keydown", function(e){
-    e = e || window.event;
-    if (e.key === "Escape" || e.keyCode === 27){
-      if (modal.classList.contains("open")) closeModal();
-    }
-  });
+  modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeModal(); });
 
-  (function(){
-    var mq = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)")) || null;
-    function setThemeMeta(){
-      var dark = mq && mq.matches;
-      var meta = document.querySelector('meta[name="theme-color"]');
-      if (!meta){
-        meta = document.createElement("meta");
-        meta.setAttribute("name","theme-color");
-        document.head.appendChild(meta);
-      }
-      meta.setAttribute("content", dark ? "#101010" : "#ffffff");
-    }
-    setThemeMeta();
-    if (mq && mq.addListener) mq.addListener(setThemeMeta);
-  })();
+  const mq = matchMedia("(prefers-color-scheme: dark)");
+  const setThemeMeta = () => {
+    const meta = document.querySelector('meta[name="theme-color"]') || (() => {
+      const m = document.createElement("meta");
+      m.setAttribute("name","theme-color");
+      document.head.appendChild(m);
+      return m;
+    })();
+    meta.setAttribute("content", mq.matches ? "#101010" : "#ffffff");
+  };
+  setThemeMeta();
+  mq.addEventListener?.("change", setThemeMeta);
 
-  if (window.console && console.log) console.log("[site.js v14] ready (delegated + sanitized, ES5)");
+  console.log("[site.js v20] modern build ready");
 });
