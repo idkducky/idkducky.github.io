@@ -6,8 +6,6 @@
 
 [steam profile](https://steamcommunity.com/id/tut_na_sfere/)
 
-[analog facebook](https://vk.com/raypsey)
-
 [analog myanimelist](https://animego.org/profile/edit)
 
 [Discord](https://discord.gg/dmKVKkADqY) 
