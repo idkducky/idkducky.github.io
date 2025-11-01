@@ -1,17 +1,14 @@
-(function(){
-  var mq = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)")) || null;
-  function setThemeMeta(){
-    var dark = mq && mq.matches;
-    var meta = document.querySelector('meta[name="theme-color"]');
-    if (!meta){
-      meta = document.createElement("meta");
-      meta.setAttribute("name","theme-color");
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute("content", dark ? "#101010" : "#ffffff");
+(function () {
+  var MAP = {
+    "/index-en.html": "/en.html",
+    "/index-az.html": "/az.html",
+    "/index-ka.html": "/ka.html",
+    "/index-ua.html": "/ua.html"
+  };
+  var p = (location.pathname.replace(/\/+$/, "") || "/index.html");
+  if (MAP[p]) {
+    location.replace(MAP[p] + location.search + location.hash);
   }
-  setThemeMeta();
-  if (mq && mq.addListener) mq.addListener(setThemeMeta);
 })();
 
 window.changeLang = function (sel) {
@@ -36,6 +33,30 @@ window.changeLang = function (sel) {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
+  function sanitizeApps(root) {
+    var scope = root || document;
+    var apps = scope.querySelectorAll ? scope.querySelectorAll(".app") : [];
+    for (var i = 0; i < apps.length; i++) {
+      var a = apps[i];
+
+      var nodes = a.childNodes;
+      var rm = [];
+      for (var j = 0; j < nodes.length; j++) {
+        var n = nodes[j];
+        if (n.nodeType === 3 && n.nodeValue && n.nodeValue.replace(/\s+/g,"").length) {
+          rm.push(n);
+        }
+      }
+      for (var r = 0; r < rm.length; r++) a.removeChild(rm[r]);
+
+      var labels = a.querySelectorAll ? a.querySelectorAll("span.t") : [];
+      for (var k = 1; k < labels.length; k++) {
+        var extra = labels[k];
+        if (extra && extra.parentNode) extra.parentNode.removeChild(extra);
+      }
+    }
+  }
+
   var sel = document.querySelector('select[onchange^="changeLang"]');
   if (sel) {
     var current = (location.pathname.replace(/\/+$/, "") || "/index.html");
@@ -76,8 +97,11 @@ document.addEventListener("DOMContentLoaded", function () {
     title.textContent = label || "Folder";
     while (grid.firstChild) grid.removeChild(grid.firstChild);
     for (var i=0;i<apps.length;i++){
-      grid.appendChild(apps[i].cloneNode(true));
+      var clone = apps[i].cloneNode(true);
+      grid.appendChild(clone);
     }
+    sanitizeApps(grid);
+
     document.body.classList.add("folder-open");
     modal.classList.remove("closing");
     modal.classList.add("open");
@@ -97,12 +121,15 @@ document.addEventListener("DOMContentLoaded", function () {
     setTimeout(done, 300);
   }
 
+  sanitizeApps(document);
+
   document.addEventListener("click", function(e){
     var node = e.target;
+
     var n = node;
     while (n) {
-      if (n.classList && n.classList.contains("apps")) return; 
-      if (n.tagName === "A") return; 
+      if (n.tagName === "A") return;
+      if (n.classList && n.classList.contains("apps")) return;
       n = n.parentNode;
     }
 
@@ -116,7 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var label = lblEl ? (lblEl.textContent || lblEl.innerText) : "Folder";
     var appsNodeList = el.querySelectorAll(".app");
     var apps = [];
-    for (var i=0;i<appsNodeList.length;i++) apps.push(appsNodeList[i]);
+    for (var i2=0;i2<appsNodeList.length;i2++) apps.push(appsNodeList[i2]);
 
     if (e && e.preventDefault) e.preventDefault();
     openModal(label, apps);
@@ -131,5 +158,21 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  if (window.console && console.log) console.log("[site.js v13] ready (delegated, ES5)");
+  (function(){
+    var mq = (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)")) || null;
+    function setThemeMeta(){
+      var dark = mq && mq.matches;
+      var meta = document.querySelector('meta[name="theme-color"]');
+      if (!meta){
+        meta = document.createElement("meta");
+        meta.setAttribute("name","theme-color");
+        document.head.appendChild(meta);
+      }
+      meta.setAttribute("content", dark ? "#101010" : "#ffffff");
+    }
+    setThemeMeta();
+    if (mq && mq.addListener) mq.addListener(setThemeMeta);
+  })();
+
+  if (window.console && console.log) console.log("[site.js v14] ready (delegated + sanitized, ES5)");
 });
