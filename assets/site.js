@@ -1,99 +1,133 @@
-// site.js v11 — normalize old paths + set language select by current URL + iOS modal
-
-// --- 0) Нормализация старых путей (если кто-то пришёл по старым ссылкам) ---
-(function normalizeLegacyPaths() {
-  const MAP = {
+(function () {
+  var MAP = {
     "/index-en.html": "/en.html",
     "/index-az.html": "/az.html",
     "/index-ka.html": "/ka.html",
     "/index-ua.html": "/ua.html"
   };
-  const p = (location.pathname.replace(/\/+$/, "") || "/index.html");
-  if (MAP[p]) location.replace(MAP[p] + location.search + location.hash);
+  var p = (location.pathname.replace(/\/+$/, "") || "/index.html");
+  if (MAP[p]) {
+    location.replace(MAP[p] + location.search + location.hash);
+  }
 })();
 
-// --- 1) Переключение языка ---
 window.changeLang = function (sel) {
-  let val = sel?.value;
+  if (!sel) return;
+  var val = sel.value;
   if (!val) return;
 
-  // защита от старых значений
-  const LEGACY = {
+  var LEGACY = {
     "/index-en.html": "/en.html",
     "/index-az.html": "/az.html",
     "/index-ka.html": "/ka.html",
     "/index-ua.html": "/ua.html"
   };
-  val = LEGACY[val] || val;
+  if (LEGACY[val]) val = LEGACY[val];
 
-  const current = (location.pathname.replace(/\/+$/, "") || "/index.html");
-  if (val === current) return; // уже на этом языке
+  var current = (location.pathname.replace(/\/+$/, "") || "/index.html");
+  if (val === current) return;
 
   document.body.classList.add("fade-out");
-  const d = matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 380;
-  setTimeout(() => (location.href = val), d);
+  var d = (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? 0 : 380;
+  setTimeout(function(){ location.href = val; }, d);
 };
 
-document.addEventListener("DOMContentLoaded", () => {
-  // --- 2) Синхронизируем селектор с текущим URL ---
-  const sel = document.querySelector('select[onchange^="changeLang"]');
+document.addEventListener("DOMContentLoaded", function () {
+
+  var sel = document.querySelector('select[onchange^="changeLang"]');
   if (sel) {
-    const current = (location.pathname.replace(/\/+$/, "") || "/index.html");
-    const valueToSet = current === "/" ? "/index.html" : current;
-    if ([...sel.options].some(o => o.value === valueToSet)) sel.value = valueToSet;
+    var current = (location.pathname.replace(/\/+$/, "") || "/index.html");
+    var valueToSet = current === "/" ? "/index.html" : current;
+    for (var i=0;i<sel.options.length;i++){
+      if (sel.options[i].value === valueToSet){ sel.value = valueToSet; break; }
+    }
   }
 
-  // --- 3) iOS-модалка «папок» ---
-  const modal = document.createElement("div");
+
+  var modal = document.createElement("div");
   modal.className = "folder-modal";
-  modal.innerHTML = `
-    <div class="folder-panel" role="dialog" aria-modal="true">
-      <div class="folder-header">
-        <span class="folder-title"></span>
-        <button class="folder-close" aria-label="Close">×</button>
-      </div>
-      <div class="folder-grid"></div>
-    </div>`;
+
+  var panel = document.createElement("div");
+  panel.className = "folder-panel";
+
+  var header = document.createElement("div");
+  header.className = "folder-header";
+
+  var title = document.createElement("span");
+  title.className = "folder-title";
+  header.appendChild(title);
+
+  var closeBtn = document.createElement("button");
+  closeBtn.className = "folder-close";
+  closeBtn.setAttribute("aria-label","Close");
+  closeBtn.appendChild(document.createTextNode("×"));
+  header.appendChild(closeBtn);
+
+  var grid = document.createElement("div");
+  grid.className = "folder-grid";
+
+  panel.appendChild(header);
+  panel.appendChild(grid);
+  modal.appendChild(panel);
   document.body.appendChild(modal);
 
-  const panel = modal.querySelector(".folder-panel");
-  const title = modal.querySelector(".folder-title");
-  const grid  = modal.querySelector(".folder-grid");
-  const closeBtn = modal.querySelector(".folder-close");
-
-  function openModal(label, apps) {
+  function openModal(label, apps){
     title.textContent = label || "Folder";
-    grid.innerHTML = "";
-    apps.forEach(a => grid.appendChild(a.cloneNode(true)));
+
+    while (grid.firstChild) grid.removeChild(grid.firstChild);
+
+    for (var i=0;i<apps.length;i++){
+      grid.appendChild(apps[i].cloneNode(true));
+    }
     document.body.classList.add("folder-open");
     modal.classList.remove("closing");
     modal.classList.add("open");
-    closeBtn.focus({ preventScroll: true });
+    try { closeBtn.focus(); } catch(e){}
   }
 
-  function closeModal() {
+  function closeModal(){
     if (!modal.classList.contains("open")) return;
     modal.classList.add("closing");
     modal.classList.remove("open");
-    const done = () => { modal.classList.remove("closing"); document.body.classList.remove("folder-open"); };
-    panel.addEventListener("transitionend", done, { once: true });
-    setTimeout(done, 260);
+    var done = function(){
+      modal.classList.remove("closing");
+      document.body.classList.remove("folder-open");
+      panel.removeEventListener("transitionend", done);
+    };
+    panel.addEventListener("transitionend", done);
+    setTimeout(done, 300); 
   }
 
-  document.querySelectorAll(".cc-folder").forEach(folder => {
-    const summary = folder.querySelector("summary");
-    if (!summary) return;
-    summary.addEventListener("click", (e) => {
-      e.preventDefault();
-      const label = folder.querySelector(".label")?.textContent?.trim();
-      const apps = Array.from(folder.querySelectorAll(".app"));
-      openModal(label, apps);
-    });
-  });
+
+  var folders = document.querySelectorAll(".cc-folder");
+  for (var j=0;j<folders.length;j++){
+    (function(folder){
+      var summary = folder.querySelector("summary");
+      if (!summary) return;
+      summary.addEventListener("click", function(e){
+
+        if (e && e.preventDefault) e.preventDefault();
+        var lblEl = folder.querySelector(".label");
+        var label = lblEl ? (lblEl.textContent || lblEl.innerText) : "Folder";
+        var apps = folder.querySelectorAll(".app");
+  
+        var list = [];
+        for (var k=0;k<apps.length;k++) list.push(apps[k]);
+        openModal(label, list);
+      });
+    })(folders[j]);
+  }
+
 
   closeBtn.addEventListener("click", closeModal);
-  modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape" && modal.classList.contains("open")) closeModal(); });
+  modal.addEventListener("click", function(e){ if (e.target === modal) closeModal(); });
+  document.addEventListener("keydown", function(e){
+    e = e || window.event;
+    if (e.key === "Escape" || e.keyCode === 27){
+      if (modal.classList.contains("open")) closeModal();
+    }
+  });
 
-  console.log("[site.js v11] ready");
+
+  if (window.console && console.log) console.log("[site.js v12] ready (ES5)");
 });
