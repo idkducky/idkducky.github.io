@@ -2,47 +2,80 @@
 title: Home
 ---
 
-<!-- Автопереключение EN -->
+<!-- Автопереход на EN, если язык браузера англ. Форс-переключение через ?lang=ru|en -->
 <script>
-const userLang = navigator.language || navigator.userLanguage;
-if (userLang && userLang.toLowerCase().startsWith('en')) {
-  window.location.href = "index-en.md";
-}
+(function () {
+  const params = new URLSearchParams(location.search);
+  const force = params.get('lang');
+  if (force === 'en') { location.href = 'index-en.md'; return; }
+  if (force === 'ru') { return; }
+  const lang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+  if (lang.startsWith('en')) location.href = 'index-en.md';
+})();
 </script>
 
-<h1 align="center">🩷 Ну... Привет | So... hello c:</h1>
+<style>
+  body { 
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Arial, sans-serif;
+    background: linear-gradient(180deg, #f9f6f2, #f2eee9);
+  }
+  .wrap {
+    max-width: 760px; margin: 48px auto; padding: 24px 22px;
+    background: #fff; border-radius: 18px; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+  }
+  h1, h2, h3, p, a { text-align: center; }
+  .hero-img {
+    border-radius: 20px; 
+    box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  }
+  .socials { display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; margin-top: 10px; }
+  .socials a { 
+    display: inline-flex; flex-direction: column; align-items: center; 
+    text-decoration: none; color: #222; font-size: 14px;
+  }
+  .socials img { width: 60px; height: 60px; border-radius: 12px; }
+  .muted { color:#666; font-size:14px; margin-top:8px; }
+  .lang-switch { margin-top: 18px; }
+</style>
 
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/82889274/183735082-6b864cd6-9229-475b-b0b8-cd9e760e023c.jpg"
-       alt="<3" width="300"
-       style="border-radius:20px; box-shadow:0 6px 20px rgba(0,0,0,0.2);">
-</p>
+<div class="wrap">
+  <h1>🩷 Ну... Привет | So... hello c:</h1>
 
-<p align="center"><em>Добро пожаловать в мой маленький уютный уголок интернета 🦆</em></p>
+  <p>
+    <img class="hero-img"
+      src="https://user-images.githubusercontent.com/82889274/183735082-6b864cd6-9229-475b-b0b8-cd9e760e023c.jpg"
+      alt="<3" width="300">
+  </p>
 
----
+  <p class="muted"><em>Добро пожаловать в мой маленький уютный уголок интернета 🦆</em></p>
 
-## 🌸 Ссылки на мои соц сети
-### (Links to my social networks)
+  <hr>
 
-<p align="center">
-  <a href="https://www.youtube.com/@damne322">
-    <img src="https://github.com/user-attachments/assets/276907c1-5e6f-427f-bb4e-7154dbc37a3d" width="60"><br>🎬 YouTube
-  </a> &nbsp;&nbsp;
-  <a href="https://steamcommunity.com/id/tut_na_sfere/">
-    <img src="https://raw.githubusercontent.com/idkducky/idkducky.github.io/main/assets/icons/steam.png" width="60"><br>🎮 Steam
-  </a> &nbsp;&nbsp;
-  <a href="https://discord.gg/dmKVKkADqY">
-    <img src="https://github.com/user-attachments/assets/7da6b557-16d6-466f-bd8c-964008228c07" width="60"><br>💬 Discord
-  </a> &nbsp;&nbsp;
-  <a href="https://t.me/DaMne_322">
-    <img src="https://github.com/user-attachments/assets/30db8287-f0d1-4cc1-92cc-c371083b02be" width="60"><br>📱 Telegram
-  </a> &nbsp;&nbsp;
-  <a href="https://x.com/DaMne322">
-    <img src="https://github.com/user-attachments/assets/08640366-2588-4502-85e3-82850a73781c" width="60"><br>🐦 Twitter
-  </a>
-</p>
+  <h2>🌸 Ссылки на мои соц сети</h2>
+  <h3>(Links to my social networks)</h3>
 
----
+  <div class="socials">
+    <a href="https://www.youtube.com/@damne322">
+      <img src="https://github.com/user-attachments/assets/276907c1-5e6f-427f-bb4e-7154dbc37a3d" alt="YouTube"><span>🎬 YouTube</span>
+    </a>
+    <a href="https://steamcommunity.com/id/tut_na_sfere/">
+      <img src="https://raw.githubusercontent.com/idkducky/idkducky.github.io/main/assets/icons/steam.png" alt="Steam"><span>🎮 Steam</span>
+    </a>
+    <a href="https://discord.gg/dmKVKkADqY">
+      <img src="https://github.com/user-attachments/assets/7da6b557-16d6-466f-bd8c-964008228c07" alt="Discord"><span>💬 Discord</span>
+    </a>
+    <a href="https://t.me/DaMne_322">
+      <img src="https://github.com/user-attachments/assets/30db8287-f0d1-4cc1-92cc-c371083b02be" alt="Telegram"><span>📱 Telegram</span>
+    </a>
+    <a href="https://x.com/DaMne322">
+      <img src="https://github.com/user-attachments/assets/08640366-2588-4502-85e3-82850a73781c" alt="Twitter"><span>🐦 Twitter</span>
+    </a>
+  </div>
 
-<p align="center"><a href="index-en.md">🇬🇧 Switch to English</a></p>
+  <p class="lang-switch">
+    <a href="index-en.md">🇬🇧 Switch to English</a> · 
+    <a href="?lang=ru">Зафиксировать RU</a> · 
+    <a href="?lang=en">Зафиксировать EN</a>
+  </p>
+</div>
